@@ -17,3 +17,5 @@ gem "launchy", ">= 2.1.0", :group => :test
 gem "devise", ">= 2.1.0"
 gem "annotate", "~> 2.4.1.beta" , :group => :development
 gem "gravatar_image_tag", ">=1.0.0.pre2"
+gem "faker", ">=0.3.1", :group => :development
+gem "will_paginate", ">=3.0.pre2"     #to pages

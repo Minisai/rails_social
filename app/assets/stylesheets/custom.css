@@ -122,3 +122,13 @@ td.sidebar {
     border: 1px solid #999;
     margin-bottom: -15px;
 }
+
+
+/* Users show page */
+ul.users {
+    margin-top: 1em;
+}
+
+.users li {
+    list-style: none;
+}

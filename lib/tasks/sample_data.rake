@@ -1,5 +1,24 @@
-# == Schema Information
-#
+namespace :db do
+  desc "Fill database with sample data"
+  task :populate => :environment do
+    Rake::Task['db:reset'].invoke
+    User.create!(:name => "Example User",
+                 :email => "example@railstutorial.org",
+                 :password => "foobar",
+                 :password_confirmation => "foobar",
+                 :confirmed_at => Time.now)
+    99.times do |n|
+      name  = Faker::Name.name
+      email = "example-#{n+1}@railstutorial.org"
+      password  = "password"
+      User.create!(:name => name,
+                   :email => email,
+                   :password => password,
+                   :password_confirmation => password,
+                   :confirmed_at => Time.now)
+    end
+  end
+end
 # Table name: users
 #
 #  id                     :integer         not null, primary key
@@ -25,15 +44,3 @@
 #  updated_at             :datetime        not null
 #  name                   :string(255)
 #
-
-class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :token_authenticatable, :confirmable, :lockable, :timeoutable
-
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :confirmed_at
-end
