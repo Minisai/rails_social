@@ -4,7 +4,7 @@ Rails3DeviseRspecCucumber::Application.routes.draw do
   end
   match '/contact', :to => 'pages#contact'
   match '/about', :to => 'pages#about'
-  match '/home', :to => 'home#index'
+  #match '/home', :to => 'home#index'
   match '/', :to => 'home#index'
   match '/users', :to => 'users#index'
 
