@@ -11,4 +11,9 @@ class UsersController < ApplicationController
     @title = @user.name
   end
 
+  def friends
+    @title = "Friends"
+    @user = current_user
+  end
+
 end

@@ -1,0 +1,8 @@
+<ul class="users">
+  <% @user.friends.each do |friend| %>
+      <li>
+        <%= gravatar_for friend, :size => 30 %>
+        <%= link_to friend.name, friend %> signed up <%= friend.created_at.to_date %>
+      </li>
+  <% end %>
+</ul>
