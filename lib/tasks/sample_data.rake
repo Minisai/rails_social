@@ -2,10 +2,13 @@ namespace :db do
   desc "Fill database with sample data"
   task :populate => :environment do
     Rake::Task['db:reset'].invoke
-    User.create!(:name => "Example User",
-                 :email => "example@railstutorial.org",
-                 :password => "foobar",
-                 :password_confirmation => "foobar",
+
+    AdminUser.create!(:email => 'antonjyha@gmail.com', :password => '5111991', :password_confirmation => '5111991')
+
+    User.create!(:name => "DAS",
+                 :email => "d.a.s91@tut.by",
+                 :password => "5111991",
+                 :password_confirmation => "5111991",
                  :confirmed_at => Time.now)
     99.times do |n|
       name  = Faker::Name.name
@@ -16,6 +19,11 @@ namespace :db do
                    :password => password,
                    :password_confirmation => password,
                    :confirmed_at => Time.now)
+    end
+    User.all(:limit => 6).each do |user|
+      50.times do
+        user.microposts.create!(:content => Faker::Lorem.sentence(5))
+      end
     end
   end
 end

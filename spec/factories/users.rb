@@ -9,3 +9,8 @@ FactoryGirl.define do
     confirmed_at Time.now
   end
 end
+
+Factory.sequence :email do |n|
+  "person-#{n}@example.com"
+end
+
