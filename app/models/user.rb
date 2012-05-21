@@ -38,4 +38,9 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :confirmed_at
 
   has_many :microposts, :dependent => :destroy
+
+  def feed
+    # This is preliminary. See Глава 12 for the full implementation.
+    Micropost.where("user_id = ?", id)
+  end
 end

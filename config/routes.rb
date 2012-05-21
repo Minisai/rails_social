@@ -9,6 +9,7 @@ Rails3DeviseRspecCucumber::Application.routes.draw do
   end
   devise_for :users
   resources :users, :only => [:show, :index]
+  resources :microposts, :only => [:create, :destroy]
 
   match '/contact', :to => 'pages#contact'
   match '/about', :to => 'pages#about'
