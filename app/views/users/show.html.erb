@@ -1,5 +1,22 @@
 <table class="profile" summary="Profile information">
   <tr>
+    <td class="sidebar round">
+      <h2>Your Friends</h2>
+      <ul>
+        <% for friendship in @user.friendships %>
+            <li>
+              <%= h friendship.friend.name %>
+              (<%= link_to "remove", friendship, :method => :delete %>)
+            </li>
+        <% end %>
+      </ul>
+      <h2>Users Who Have Befriended You</h2>
+      <ul>
+        <% for user in @user.inverse_friends %>
+            <li><%= h user.name %></li>
+        <% end %>
+      </ul>
+    </td>
     <td class="main">
       <h1>
         <%= gravatar_for @user %>
@@ -24,7 +41,14 @@
     <td class="sidebar round">
       <strong>Name</strong> <%= @user.name %><br />
       <strong>URL</strong>  <%= link_to user_path(@user), @user %><br />
-      <strong>Microposts</strong> <%= @user.microposts.count %>
+      <strong>Microposts</strong> <%= @user.microposts.count %><br />
+      <% if current_user != @user %>
+      <%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
+      <% else %>
+      <strong>It's you :)</strong>
+      <% end %>
     </td>
+
   </tr>
+
 </table>

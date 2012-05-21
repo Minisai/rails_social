@@ -10,4 +10,5 @@ class UsersController < ApplicationController
     @microposts = @user.microposts.paginate(:page => params[:page])
     @title = @user.name
   end
+
 end

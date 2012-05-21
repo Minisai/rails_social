@@ -15,7 +15,7 @@ class MicropostsController < ApplicationController
 
   def destroy
     @micropost.destroy
-    rredirect_to '/home'
+    redirect_to '/home'
   end
 
   private

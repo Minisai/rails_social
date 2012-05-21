@@ -11,6 +11,8 @@ Rails3DeviseRspecCucumber::Application.routes.draw do
   resources :users, :only => [:show, :index]
   resources :microposts, :only => [:create, :destroy]
 
+  resources :friendships
+
   match '/contact', :to => 'pages#contact'
   match '/about', :to => 'pages#about'
   match '/home', :to => 'home#index'

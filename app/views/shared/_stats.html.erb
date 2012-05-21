@@ -1,0 +1,14 @@
+<% @user ||= current_user %>
+<div class="stats">
+  <table summary="User stats">
+    <h2>Your Friends</h2>
+    <ul>
+      <% for friendship in @user.friendships %>
+          <li>
+            <%= h friendship.friend.name %>
+            (<%= link_to "remove", friendship, :method => :delete %>)
+          </li>
+      <% end %>
+    </ul>
+  </table>
+</div>
