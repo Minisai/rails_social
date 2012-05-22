@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
+
   def index
     @title = "All users"
     @users = User.paginate(:page => params[:page])
@@ -12,8 +13,20 @@ class UsersController < ApplicationController
   end
 
   def friends
-    @title = "Friends"
-    @user = current_user
+    @user = User.find(params[:id])
+    @title = @user.name.to_s + "'s Friends"
+    @friends =  @user.friends.paginate(:page => params[:page])
   end
 
+  def news
+    @user = User.find(params[:id])
+
+    @microposts = @user.microposts#.paginate(:page => params[:page])
+    @microposts.delete_all
+
+    @user.friends.each do |friend|
+      @microposts += friend.microposts#.paginate(:page => params[:page])
+    end
+    @microposts = @microposts.paginate(:page => params[:page])
+  end
 end

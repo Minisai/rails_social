@@ -49,4 +49,5 @@ class User < ActiveRecord::Base
     # This is preliminary. See Глава 12 for the full implementation.
     Micropost.where("user_id = ?", id)
   end
+
 end
