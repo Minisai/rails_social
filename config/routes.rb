@@ -16,9 +16,11 @@ Rails3DeviseRspecCucumber::Application.routes.draw do
   match '/contact', :to => 'pages#contact'
   match '/about', :to => 'pages#about'
 
-  match "/users/:id/friends" => "users#friends", :as => :current_user_friends
+  match "/users/:id/friends" => "users#friends", :as => :user_friends
 
-  match "/news" => "users#news", :as => :news_path
+  match "/friends" => "users#friends", :as => :current_user_friends
+
+  match "/news" => "users#news", :as => :news
 
   match '/home', :to => 'home#index'
   match '/', :to => 'home#index'

@@ -1,0 +1,13 @@
+<nav class="round+menu">
+  <ul>
+    <li>
+      <%= link_to "Profile", current_user%>
+    </li>
+    <li>
+      <%= link_to "Friends", current_user_friends_path, :class => 'brand' %>
+    </li>
+    <li>
+      <%= link_to "News", news_path %>
+    </li>
+  </ul>
+</nav>
