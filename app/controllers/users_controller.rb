@@ -19,13 +19,12 @@ class UsersController < ApplicationController
   end
 
   def news
-    @user = User.find(params[:id])
+    @user = current_user
 
-    @microposts = @user.microposts#.paginate(:page => params[:page])
-    @microposts.delete_all
+    @microposts = @user.microposts.class.new
 
     @user.friends.each do |friend|
-      @microposts += friend.microposts#.paginate(:page => params[:page])
+      @microposts += friend.microposts.paginate(:page => params[:page])
     end
     @microposts = @microposts.paginate(:page => params[:page])
   end
