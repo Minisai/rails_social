@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @user = current_user unless @user = User.find(params[:id])
     #@microposts = @user.microposts.paginate(:page => params[:page])
     @title = @user.name
-    @friends_title = @user.name.to_s + "'s Friends"
+    @friends_title = "Friends"
     @micropost = Micropost.new
     @feed_items = @user.feed.paginate(:page => params[:page])
   end

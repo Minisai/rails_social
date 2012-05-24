@@ -8,9 +8,10 @@ class MicropostsController < ApplicationController
     #user =  self.user
     @micropost  = user.microposts.build(params[:micropost])#current_user.id)
     @micropost.creator_id = creator.id
+    @micropost.user_id = params[:micropost][:user_id]
     if @micropost.save
       flash[:success] = "Micropost created!"
-      redirect_to  "/about"
+      redirect_to  user_profile_path(:id => params[:micropost][:user_id])
     else
       @feed_items = []
       render  "/about"
@@ -19,14 +20,14 @@ class MicropostsController < ApplicationController
 
   def destroy
     @micropost.destroy
-    redirect_to current_user
+    redirect_to :back
   end
 
   private
 
   def authorized_user
-    @micropost = current_user.microposts.find(params[:id])
+    @micropost = params[:user].microposts.find(params[:id])
   rescue
-   redirect_to '/about'
+    redirect_to :back
   end
 end

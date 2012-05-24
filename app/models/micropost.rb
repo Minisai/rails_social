@@ -9,9 +9,9 @@ class Micropost < ActiveRecord::Base
 
   default_scope :order => 'microposts.created_at DESC'
 
-  def user
-    User.where("id = ?", user_id)
-  end
+  #def user
+  #  User.where("id = ?", user_id)
+  #end
 end
 # == Schema Information
 #
