@@ -75,7 +75,8 @@ nav ul li a:hover {
 }
 /*Menu*/
 nav.menu{
-    float: left;
+    float: none;
+    font-size: 200%;
 }
 
 

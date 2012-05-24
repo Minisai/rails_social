@@ -1,9 +1,11 @@
 <h1><%=@title%></h1>
 <ul class="users">
-  <% @friends.each do |friend| %>
+
+  <% for friendship in @user.friendships %>
       <li>
-        <%= gravatar_for friend, :size => 30 %>
-        <%= link_to friend.name, friend %> signed up <%= friend.created_at.to_date %>
+        <%= gravatar_for friendship.friend, :size => 30 %>
+        <%= link_to friendship.friend.name, friendship.friend %> signed up <%= friendship.friend.created_at.to_date %>
+        (<%= link_to "remove", friendship, :method => :delete %>)
       </li>
   <% end %>
 </ul>

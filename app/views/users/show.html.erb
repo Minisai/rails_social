@@ -1,12 +1,23 @@
 <table class="profile" summary="Profile information">
   <tr>
     <td class="sidebar round">
+      <div>
+        <h1>
+          <%= gravatar_for @user, :size => 170 %> <br/>
+          <br/><%= @user.name %>
+        </h1>
+        <% if current_user != @user %>
+            <%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
+        <% else %>
+            <strong>It's you :)</strong>
+        <% end %>
+
+      </div>
       <h2><%= @friends_title %></h2><li><%= link_to "Your Friends", user_friends_path %></li>
       <ul>
         <% for friendship in @user.friendships %>
             <li>
               <%= h friendship.friend.name %>
-              (<%= link_to "remove", friendship, :method => :delete %>)
             </li>
         <% end %>
       </ul>
@@ -23,24 +34,16 @@
         <%= @user.name %>
       </h1>
 
+      <table class="front" summary="For signed-in users">
+        <tr>
+          <td class="main">
+            <h1 class="micropost">What's up?</h1>
+            <%= render 'shared/micropost_form' %>
+            <%= render 'shared/feed' %>
+          </td>
+        </tr>
+      </table>
 
-
-      <% unless @user.microposts.empty? %>
-          <table class="microposts" summary="User microposts">
-            <% @microposts.each do |micropost| %>
-                <tr>
-                  <td class="micropost">
-                    <span class="content"><%= micropost.content %></span>
-                    <span class="timestamp">
-                      Posted <%= time_ago_in_words(micropost.created_at) %> ago.
-                    </span>
-                  </td>
-                </tr>
-            <% end %>
-          </table>
-          <%= will_paginate @microposts %>
-      <% end %>
-    </td>
     <td class="sidebar round">
       <strong>Name</strong> <%= @user.name %><br />
       <strong>URL</strong>  <%= link_to user_path(@user), @user %><br />
@@ -51,7 +54,5 @@
       <strong>It's you :)</strong>
       <% end %>
     </td>
-
   </tr>
-
 </table>

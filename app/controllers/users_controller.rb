@@ -7,12 +7,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(:page => params[:page])
+    @user = current_user unless @user = User.find(params[:id])
+    #@microposts = @user.microposts.paginate(:page => params[:page])
     @title = @user.name
     @friends_title = @user.name.to_s + "'s Friends"
     @micropost = Micropost.new
-    @feed_items = current_user.feed.paginate(:page => params[:page])
+    @feed_items = @user.feed.paginate(:page => params[:page])
   end
 
   def friends
@@ -24,11 +24,10 @@ class UsersController < ApplicationController
   def news
     @user = current_user
 
-    @microposts = @user.microposts.class.new
-
+    @feed_items = @user.microposts.class.new
     @user.friends.each do |friend|
-      @microposts += friend.microposts.paginate(:page => params[:page])
+      @feed_items += friend.news_feed
     end
-    @microposts = @microposts.paginate(:page => params[:page])
+    @feed_items = @feed_items.paginate(:page => params[:page])
   end
 end

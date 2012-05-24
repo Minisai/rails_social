@@ -45,9 +45,15 @@ class User < ActiveRecord::Base
   has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
 
+  has_many :creators, :through => :microposts
+
   def feed
-    # This is preliminary. See Глава 12 for the full implementation.
     Micropost.where("user_id = ?", id)
   end
+
+  def news_feed
+    Micropost.where("creator_id = ?", id)
+  end
+
 
 end

@@ -1,16 +1,8 @@
-    <table class="microposts" summary="Friends news">
-      <% @microposts.each do |micropost| %>
-          <tr>
-            <td class="micropost">
-              <span class="content"><%= micropost.content %></span>
-                    <span class="timestamp">
-                      Posted <%= time_ago_in_words(micropost.created_at) %> ago.
-                    </span>
-                    <span class="timestamp">
-                      by <%= micropost.user.name %> .
-                    </span>
-            </td>
-          </tr>
-      <% end %>
-    </table>
-    <%= will_paginate @microposts %>
+      <table class="front" summary="For signed-in users">
+        <tr>
+          <td class="main">
+            <h1 class="micropost">Friends news</h1>
+            <%= render 'shared/news_feed' %>
+          </td>
+        </tr>
+      </table>

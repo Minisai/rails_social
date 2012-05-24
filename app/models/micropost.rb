@@ -1,16 +1,17 @@
 class Micropost < ActiveRecord::Base
-  attr_accessible :content
+  attr_accessible :content, :creator_id, :user_id
 
   belongs_to :user
+  belongs_to :creator, :class_name => 'User'
 
   validates :content, :presence => true, :length => { :maximum => 140 }
   validates :user_id, :presence => true
 
   default_scope :order => 'microposts.created_at DESC'
 
-  #def user
-  #  User.where("id = ?", Micropost.where("id = ?", id).user_id)
-  #end
+  def user
+    User.where("id = ?", user_id)
+  end
 end
 # == Schema Information
 #
