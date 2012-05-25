@@ -4,11 +4,11 @@
       <div class="round">
         <ul class="users">
         <h1>
-          <p align="center"><%= gravatar_for @user, :size => 170 %> <br/>  </p>
+          <p align="center"><%= gravatar_for @user, :size => 170 %> </p> <br/>
           <p align="center"><%= link_to @user.name, @user %></p>
         </h1>
           <li><%= friendship_status(current_user, @user) %>
-            <% unless Friendship.exists?(current_user, @user) %>
+            <% unless Friendship.exists?(current_user, @user) || @user==current_user %>
                 <br />
                 <%= link_to "Request friendship with #{@user.name}", friendships_path(:id => @user.id ), :method => :post,
                             :confirm => "Send friend request to #{@user.name}?" %>
@@ -17,9 +17,10 @@
       </div>
       <ul class="users">
       <h2><li><%= link_to @friends_title, user_friends_path %></li></h2>
-        <% for friendship in @user.friendships %>
+        <% for friend in @user.friends %>
             <li>
-              <%= link_to friendship.friend.name, friendship.friend %>
+              <%= gravatar_for friend %>
+              <%= link_to friend.name, friend %>
             </li>
         <% end %>
       </ul>

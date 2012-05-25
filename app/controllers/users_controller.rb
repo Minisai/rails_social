@@ -10,19 +10,10 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user unless @user = User.find(params[:id])
-    #@microposts = @user.microposts.paginate(:page => params[:page])
     @title = @user.name
     @friends_title = "Friends"
     @micropost = Micropost.new
     @feed_items = @user.feed.paginate(:page => params[:page])
-    @friendships = current_user.friendships
-    #@inverse_friendships = current_user.inverse_friendships
-
-    @followers = @user.friends.class.new
-    not_friends = @user.friendships.where("user_id != ?", params[:id])
-   # inverse_friends = @user.inverse_friendships.where("friend_id = ?", params[:id])
-    #@followerships = not_friends & inverse_friends
-    #@followers = followerships.friends
   end
 
   def friends

@@ -20,3 +20,9 @@
   <% end %>
   </ul>
 </nav>
+
+<nav class="round + navigation">
+  <% if user_signed_in? %>
+Hello <%= link_to current_user.name, current_user %> !
+  <% end %>
+</nav>
