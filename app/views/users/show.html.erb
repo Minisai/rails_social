@@ -7,18 +7,23 @@
           <p align="center"><%= gravatar_for @user, :size => 170 %> <br/>  </p>
           <p align="center"><%= link_to @user.name, @user %></p>
         </h1>
-        <% if current_user != @user %>
-            <%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
-        <% else %>
-            <strong>It's you :)</strong>
-        <% end %>
+          <%if friendship = @friendships.find_by_friend_id(@user.id)%>
+              <%= link_to "Remove Friend", friendship, :method => :delete %>
+          <%else%>
+              <% if current_user != @user %>
+                  <%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
+              <% else %>
+                  <strong>It's you :)</strong>
+              <% end %>
+          <% end %>
+
         </ul>
       </div>
       <ul class="users">
       <h2><li><%= link_to @friends_title, user_friends_path %></li></h2>
         <% for friendship in @user.friendships %>
             <li>
-              <%= h friendship.friend.name %>
+              <%= link_to friendship.friend.name, friendship.friend %>
             </li>
         <% end %>
       </ul>

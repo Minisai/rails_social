@@ -4,6 +4,8 @@ class UsersController < ApplicationController
   def index
     @title = "All users"
     @users = User.paginate(:page => params[:page])
+    @friendships = current_user.friendships
+    @friends = current_user.friends
   end
 
   def show
@@ -13,6 +15,7 @@ class UsersController < ApplicationController
     @friends_title = "Friends"
     @micropost = Micropost.new
     @feed_items = @user.feed.paginate(:page => params[:page])
+    @friendships = current_user.friendships
   end
 
   def friends

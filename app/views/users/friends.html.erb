@@ -7,7 +7,7 @@
             <li>
               <%= gravatar_for friendship.friend, :size => 30 %>
               <%= link_to friendship.friend.name, friendship.friend %> signed up <%= friendship.friend.created_at.to_date %>
-              (<%= link_to "remove", friendship, :method => :delete %>)
+              <%= link_to "Remove friend", friendship, :method => :delete %>
             </li>
         <% end %>
         <%= will_paginate @friends %>

@@ -5,10 +5,14 @@
     <li>
       <%= gravatar_for user, :size => 30 %>
       <%= link_to user.name, user %> signed up <%= user.created_at.to_date %>
-      <% if current_user != user %>
-          <%= link_to "Add Friend", friendships_path(:friend_id => user), :method => :post %>
-      <% else %>
-          <strong>It's you :)</strong>
+      <%if friendship = @friendships.find_by_friend_id(user.id)%>
+          <%= link_to "Remove Friend", friendship, :method => :delete %>
+      <%else%>
+          <% if current_user != user %>
+              <%= link_to "Add Friend", friendships_path(:friend_id => user), :method => :post %>
+          <% else %>
+              <strong>It's you :)</strong>
+          <% end %>
       <% end %>
     </li>
   <% end %>
