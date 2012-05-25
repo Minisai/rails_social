@@ -30,4 +30,6 @@ Rails3DeviseRspecCucumber::Application.routes.draw do
   match '/home', :to => 'home#index'
   match '/', :to => 'home#index'
   match '/users', :to => 'users#index'
+
+  match "friendships/:action/:id", :controller => 'friendships', :action => /[a-z_]+/i
 end

@@ -7,17 +7,13 @@
           <p align="center"><%= gravatar_for @user, :size => 170 %> <br/>  </p>
           <p align="center"><%= link_to @user.name, @user %></p>
         </h1>
-          <%if (friendship = @friendships.find_by_friend_id(@user.id)) || (friendship = @inverse_friendships.find_by_user_id(@user.id))%>
-              <%= link_to "Remove Friend", friendship, :method => :delete %>
-          <%else%>
-              <% if current_user != @user %>
-                  <%= link_to "Add Friend", friendships_path(:friend_id => @user, :status => "pending"), :method => :post %>
-              <% else %>
-                  <strong>It's you :)</strong>
-              <% end %>
-          <% end %>
-
-        </ul>
+          <li><%= friendship_status(current_user, @user) %>
+            <% unless Friendship.exists?(current_user, @user) %>
+                <br />
+                <%= link_to "Request friendship with #{@user.name}", friendships_path(:id => @user.id ), :method => :post,
+                            :confirm => "Send friend request to #{@user.name}?" %>
+            <% end %>
+           </ul>
       </div>
       <ul class="users">
       <h2><li><%= link_to @friends_title, user_friends_path %></li></h2>
@@ -27,12 +23,7 @@
             </li>
         <% end %>
       </ul>
-      <h2>Users Who Have Befriended You</h2>
-      <ul>
-        <% for user in @user.inverse_friends %>
-            <li><%= h user.name %></li>
-        <% end %>
-      </ul>
+
     </td>
     <td class="main">
       <table class="front" summary="For signed-in users">

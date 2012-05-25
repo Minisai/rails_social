@@ -40,12 +40,26 @@ class User < ActiveRecord::Base
   has_many :microposts, :dependent => :destroy
 
   has_many :friendships
-  has_many :friends, :through => :friendships
 
-  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
-  has_many :inverse_friends, :through => :inverse_friendships, :source => :user
+  has_many :friends,
+           :through => :friendships,
+           :conditions => "status = 'accepted'",
+           :order => :name
 
-  has_many :creators, :through => :microposts
+
+  has_many :requested_friends,
+           :through => :friendships,
+           :source => :friend,
+           :conditions => "status = 'requested'",
+           :order => :created_at
+
+
+  has_many :pending_friends,
+           :through => :friendships,
+           :source => :friend,
+           :conditions => "status = 'pending'",
+           :order => :created_at
+
 
   def feed
     Micropost.where("user_id = ?", id)
