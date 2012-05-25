@@ -55,5 +55,27 @@ class User < ActiveRecord::Base
     Micropost.where("creator_id = ?", id)
   end
 
+  def true_friends
+    inverse_friends & friends
+    #user_friendships = Friendship.where("user_id = ?", id)
+    #user_inverse_friendships = Friendship.where("friend_id = ?", id)
+    #true_friendships =  user_friendships & user_inverse_friendships
+    #friends = Friend.where("user_id = ?", id)
+    #inverse_friends = Inverse_friend.where("friend_id = ?", id)
+    #true_friends = friends & inverse_friends
+  end
+
+  def folowers
+    not_friends = friends.where("user_id != ?", id)
+    inverse_friends = Inverse_friend.where("friend_id = ?", id)
+    followers = not_friends & inverse_friends
+  end
+
+  def folower_to
+    friends = Friend.where("user_id = ?", id)
+    inverse_not_friends = Inverse_friend.where("friend_id != ?", id)
+    follower_to = friends & inverse_not_friends
+  end
+
 
 end

@@ -26,8 +26,9 @@ class MicropostsController < ApplicationController
   private
 
   def authorized_user
-    @micropost = params[:user].microposts.find_by_id(params[:id])
+    user = User.find_by_id(params[:user_id])
+    @micropost = user.microposts.find_by_id(params[:id])
   rescue
-    redirect_to :about#:back
+    redirect_to :back#:back
   end
 end

@@ -3,9 +3,11 @@ class CreateFriendships < ActiveRecord::Migration
     create_table :friendships do |t|
       t.integer :user_id
       t.integer :friend_id
-      t.integer :type #0-folowers; 1-you follow; 2 - friends
+      t.string :status, :default => "pending" #pending; accepted;
 
       t.timestamps
     end
+    add_index :friendships, :user_id
+    add_index :friendships, :friend_id
   end
 end

@@ -16,11 +16,19 @@ class UsersController < ApplicationController
     @micropost = Micropost.new
     @feed_items = @user.feed.paginate(:page => params[:page])
     @friendships = current_user.friendships
+    @inverse_friendships = current_user.inverse_friendships
+
+    @followers = @user.friends.class.new
+    not_friends = @user.friendships.where("user_id != ?", params[:id])
+    inverse_friends = @user.inverse_friendships.where("friend_id = ?", params[:id])
+    @followerships = not_friends & inverse_friends
+    #@followers = followerships.friends
   end
 
   def friends
     @user = current_user unless @user = User.find_by_id(params[:id])
     @title = @user.name.to_s + "'s Friends"
+
     @friends =  @user.friends.paginate(:page => params[:page])
   end
 

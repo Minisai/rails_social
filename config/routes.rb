@@ -8,7 +8,10 @@ Rails3DeviseRspecCucumber::Application.routes.draw do
     root :to => 'home#index'
   end
   devise_for :users
-  resources :users, :only => [:show, :index]
+  resources :users, :only => [:show, :index] do
+    resources :microposts, :only => [:create, :destroy]
+  end
+
   resources :microposts, :only => [:create, :destroy]
 
   resources :friendships
@@ -22,7 +25,7 @@ Rails3DeviseRspecCucumber::Application.routes.draw do
 
   match "/friends" => "users#friends", :as => :current_user_friends
 
-  match "/news" => "users#news", :as => :news_path
+  match "/news" => "users#news", :as => :news
 
   match '/home', :to => 'home#index'
   match '/', :to => 'home#index'
