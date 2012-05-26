@@ -1,0 +1,31 @@
+<h2>Photo Albums: </h2>
+
+<% unless @albums.empty? %>
+    <table class="microposts" summary="User microposts">
+    <% for album in @albums %>
+          <tr>
+            <td>
+              <%= link_to album.name, user_album_path(@user.id, album.id) %>
+            </td>
+            <td>
+              <% if current_user == @user %>
+                  <%= link_to "delete", user_album_path(@user.id, album.id), :method => :delete, :confirm => "You sure?"%>
+              <% end %>
+            </td>
+            <td>
+              <%= album.created_at %>
+            </td>
+        </tr>
+    <% end %>
+    </table>
+<% end %>
+
+<% if current_user == @user %>
+    <%= form_for @album do |f| %>
+        <div >
+          <%= f.text_field:name %>
+          <%=f.hidden_field :user_id, :value => current_user.id%>
+          <%= f.submit "Create Album" %>
+        </div>
+    <% end %>
+<% end %>

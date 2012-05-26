@@ -1,7 +1,6 @@
 <table class="profile" summary="Profile information">
   <tr>
     <td class="sidebar round">
-      <div class="round">
         <ul class="users">
         <h1>
           <p align="center"><%= gravatar_for @user, :size => 170 %> </p> <br/>
@@ -13,8 +12,7 @@
                 <%= link_to "Request friendship with #{@user.name}", friendships_path(:id => @user.id ), :method => :post,
                             :confirm => "Send friend request to #{@user.name}?" %>
             <% end %>
-           </ul>
-      </div>
+        </ul>
       <ul class="users">
       <h2><li><%= link_to @friends_title, user_friends_path %></li></h2>
         <% for friend in @user.friends %>

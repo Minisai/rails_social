@@ -1,0 +1,32 @@
+<% unless @photos.empty? %>
+    <table class="microposts" summary="User microposts">
+      <% for photo in @photos %>
+          <tr>
+            <td>
+              <%= link_to photo.name, photo %>
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+          </tr>
+      <% end %>
+    </table>
+<% end %>
+
+<% if current_user == @user %>
+    <%= form_for @photo, :html => {:multipart => true} do |f| %>
+        <%= f.error_messages %>
+        <%= f.hidden_field :album_id %>
+        <p>
+          <%= f.label :name %><br />
+          <%= f.text_field :name %>
+        </p>
+        <p>
+          <%= f.file_field :image %>
+        </p>
+        <p><%= f.submit %></p>
+    <% end %>
+<% end %>

@@ -20,3 +20,8 @@ gem "gravatar_image_tag", ">=1.0.0.pre2"
 gem "faker", ">=0.3.1", :group => :development
 gem "will_paginate", ">=3.0.pre2"     #for page-presentation
 gem "activeadmin"
+gem 'thinking-sphinx'
+gem 'yaml_db'
+#gem 'mysql2'
+gem 'carrierwave'
+gem "rmagick"

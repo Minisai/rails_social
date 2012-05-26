@@ -39,6 +39,9 @@ class User < ActiveRecord::Base
 
   has_many :microposts, :dependent => :destroy
 
+  has_many :albums
+
+
   has_many :friendships
 
   has_many :friends,
@@ -68,6 +71,5 @@ class User < ActiveRecord::Base
   def news_feed
     Micropost.where("creator_id = ?", id)
   end
-
 
 end

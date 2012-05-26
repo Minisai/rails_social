@@ -8,7 +8,7 @@ class MicropostsController < ApplicationController
     #user =  self.user
     @micropost  = user.microposts.build(params[:micropost])#current_user.id)
     @micropost.creator_id = creator.id
-    @micropost.user_id = params[:micropost][:user_id]
+    #@micropost.user_id = params[:micropost][:user_id]
     if @micropost.save
       flash[:success] = "Micropost created!"
       redirect_to  user_profile_path(:id => params[:micropost][:user_id])
