@@ -12,15 +12,15 @@ class  AlbumsController < ApplicationController
   end
 
   def index
-    @user = current_user unless @user = User.find_by_id(params[:id])
+    @user = current_user unless @user = User.find_by_id(params[:user_id])
     @album = Album.new
     @albums = @user.albums
   end
 
   def show
     @user = current_user unless @user = User.find_by_id(params[:user_id])
-    album  = @user.albums.find_by_id(params[:id])
-    @photos = album.photos
+    @album  = @user.albums.find_by_id(params[:id])
+    @photos = @album.photos
     @photo = Photo.new
   end
 

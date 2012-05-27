@@ -1,25 +1,24 @@
 <% unless @photos.empty? %>
-    <table class="microposts" summary="User microposts">
-      <% for photo in @photos %>
-          <tr>
-            <td>
-              <%= link_to photo.name, photo %>
-            </td>
-            <td>
-
-            </td>
-            <td>
-
-            </td>
-          </tr>
+    <div id="photos">
+      <% @album.photos.each do |photo| %>
+          <div class="photo">
+            <%=link_to image_tag(photo.image_url(:album_preview).to_s),photo.image_url %>
+            <div class="name"><p align="center"><%= photo.name %></p></div>
+            <% if current_user == @user %>
+            <div class="actions">
+              <p align="center"><%= link_to "remove", user_album_photo_path(@user.id, @album.id, photo.id), :confirm => 'Are you sure?', :method => :delete %></p>
+            </div>
+            <% end %>
+          </div>
       <% end %>
-    </table>
+      <div class="clear"></div>
+    </div>
 <% end %>
 
 <% if current_user == @user %>
-    <%= form_for @photo, :html => {:multipart => true} do |f| %>
-        <%= f.error_messages %>
-        <%= f.hidden_field :album_id %>
+    <%= form_for @photo do |f| %>
+        <%= f.hidden_field :album_id, :value => @album.id %>
+        <%= f.hidden_field :user_id, :value => @user.id %>
         <p>
           <%= f.label :name %><br />
           <%= f.text_field :name %>

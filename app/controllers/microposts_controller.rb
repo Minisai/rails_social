@@ -5,8 +5,7 @@ class MicropostsController < ApplicationController
   def create
     creator = current_user
     user = User.find_by_id(params[:micropost][:user_id])
-    #user =  self.user
-    @micropost  = user.microposts.build(params[:micropost])#current_user.id)
+    @micropost  = user.microposts.build(params[:micropost])
     @micropost.creator_id = creator.id
     #@micropost.user_id = params[:micropost][:user_id]
     if @micropost.save
@@ -14,7 +13,7 @@ class MicropostsController < ApplicationController
       redirect_to  user_profile_path(:id => params[:micropost][:user_id])
     else
       @feed_items = []
-      render  "/about"
+      redirect_to :back
     end
   end
 
@@ -29,6 +28,6 @@ class MicropostsController < ApplicationController
     user = User.find_by_id(params[:user_id])
     @micropost = user.microposts.find_by_id(params[:id])
   rescue
-    redirect_to :back#:back
+    redirect_to :back
   end
 end

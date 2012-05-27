@@ -25,3 +25,4 @@ gem 'yaml_db'
 #gem 'mysql2'
 gem 'carrierwave'
 gem "rmagick"
+gem 'nifty-generators'

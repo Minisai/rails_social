@@ -10,15 +10,19 @@ Rails3DeviseRspecCucumber::Application.routes.draw do
   devise_for :users
   resources :users, :only => [:show, :index] do
     resources :microposts, :only => [:create, :destroy]
-    resources :albums, :only => [:create, :destroy, :index, :show]
+    resources :albums, :only => [:create, :destroy, :index, :show] do
+      resources :photos
+    end
   end
+
+  resources :photos, :only => [:create, :destroy]
 
   resources :microposts, :only => [:create, :destroy]
 
   resources :friendships
 
   resources :albums, :only => [:create, :destroy, :index, :show] do
-    resources :photo
+    resources :photos
   end
 
   match '/contact', :to => 'pages#contact'
@@ -34,6 +38,9 @@ Rails3DeviseRspecCucumber::Application.routes.draw do
   match '/home', :to => 'home#index'
   match '/', :to => 'home#index'
   match '/users', :to => 'users#index'
+
+  match "/users/:user_id/albums" => "albums#index", :as => :user_albums
+
 
   match "friendships/:action/:id", :controller => 'friendships', :action => /[a-z_]+/i
 end
