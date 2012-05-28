@@ -1,0 +1,9 @@
+<%= form_for (current_user, :url => user_update_status_path, :html => { :method => :put })  do |f| %>
+    <div class="field">
+      <%= f.text_field :new_status %>
+      <%=f.hidden_field :user_id, :value => @user.id%>
+    </div>
+    <div class="actions">
+      <%= f.submit "Update" %>
+    </div>
+<% end %>

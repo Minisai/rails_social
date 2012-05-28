@@ -5,6 +5,7 @@ class FriendshipsController < ApplicationController
   def create
     Friendship.request(@user, @friend)
     flash[:notice] = "Friend request sent."
+    UserMailer.friend_email(@user, @friend).deliver
     redirect_to :back
   end
 

@@ -36,6 +36,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # Token authenticatable
       t.string :authentication_token
 
+      #Profile Info
+      t.string :user_status, :default => "click to change status"
 
       t.timestamps
     end

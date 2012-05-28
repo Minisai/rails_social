@@ -1,0 +1,33 @@
+<h2>Videos: </h2>
+
+<% unless @videos.empty? %>
+    <div id="photos">
+      <% @videos.each do |video| %>
+          <div class="photo">
+            <%=link_to image_tag(photo.image_url(:album_preview).to_s),photo.image_url %>
+            <div class="name"><p align="center"><%= photo.name %></p></div>
+            <% if current_user == @user %>
+                <div class="actions">
+                  <p align="center"><%= link_to "remove", user_album_photo_path(@user.id, @album.id, photo.id), :confirm => 'Are you sure?', :method => :delete %></p>
+                </div>
+            <% end %>
+          </div>
+      <% end %>
+      <div class="clear"></div>
+    </div>
+<% end %>
+
+<% if current_user == @user %>
+    <%= form_for @photo do |f| %>
+        <%= f.hidden_field :album_id, :value => @album.id %>
+        <%= f.hidden_field :user_id, :value => @user.id %>
+        <p>
+          <%= f.label :name %><br />
+          <%= f.text_field :name %>
+        </p>
+        <p>
+          <%= f.file_field :image %>
+        </p>
+        <p><%= f.submit %></p>
+    <% end %>
+<% end %>

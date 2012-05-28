@@ -30,10 +30,16 @@
       <table class="front" summary="For signed-in users">
         <tr>
           <td class="main">
-            <h1 class="micropost">What's up?</h1>
-            <%= render 'shared/micropost_form' %>
+            <div id="add_new_micropost">
+              <h1 class="micropost">
+              <%= link_to "Add post", new_user_micropost_path(:user_id => @user.id),:remote => "true",
+                                   :method => :get %>
+              </h1><br />
+            </div>
             <strong>Microposts</strong> <%= @user.microposts.count %><br />
+            <div id="message_feed">
             <%= render 'shared/feed' %>
+            </div>
           </td>
         </tr>
       </table>

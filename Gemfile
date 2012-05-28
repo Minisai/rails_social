@@ -26,3 +26,5 @@ gem 'yaml_db'
 gem 'carrierwave'
 gem "rmagick"
 gem 'nifty-generators'
+gem "fog"
+gem "zencoder"

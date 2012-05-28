@@ -21,6 +21,7 @@ class UsersController < ApplicationController
     @friends =  @user.friends.paginate(:page => params[:page])
   end
 
+
   def news
     @user = current_user
 
@@ -29,5 +30,17 @@ class UsersController < ApplicationController
       @feed_items += friend.news_feed
     end
     @feed_items = @feed_items.paginate(:page => params[:page])
+  end
+
+  def change_status
+    @user = current_user
+    @user_status = @user.user_status
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def update_status
+    current_user.status = params[:new_status]
   end
 end
